@@ -1,1 +1,23 @@
-<p>dashboard works!</p>
+<div class="dashboard-container" style="display: flex; height: 100vh;">
+  <!-- Menú Lateral -->
+  <aside class="sidebar" style="width: 250px; background-color: #2c3e50; color: white; padding: 20px;">
+    <h2>ShopSmart Admin</h2>
+    <nav>
+      <ul style="list-style: none; padding: 0;">
+        <li><a routerLink="/dashboard/usuarios" routerLinkActive="active">Usuarios</a></li>
+        <li><a routerLink="/dashboard/productos" routerLinkActive="active">Productos</a></li>
+        <li><a routerLink="/dashboard/categorias" routerLinkActive="active">Categorías</a></li>
+        <li><a routerLink="/dashboard/carrito" routerLinkActive="active">Carrito</a></li>
+        <li><a routerLink="/dashboard/pedidos" routerLinkActive="active">Pedidos</a></li>
+        <li><a routerLink="/dashboard/pagos" routerLinkActive="active">Pagos</a></li>
+        <li><a routerLink="/dashboard/resenas" routerLinkActive="active">Reseñas</a></li>
+      </ul>
+    </nav>
+    <button (click)="logout()" style="margin-top: auto; padding: 10px; width: 100%; cursor: pointer;">Cerrar Sesión</button>
+  </aside>
+
+  <!-- Contenido Dinámico de las Rutas Hijas -->
+  <main class="content" style="flex-grow: 1; padding: 20px; overflow-y: auto;">
+    <router-outlet></router-outlet>
+  </main>
+</div>

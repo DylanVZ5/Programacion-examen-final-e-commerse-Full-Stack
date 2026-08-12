@@ -6,6 +6,8 @@ const roleMiddleware = require('../middlewares/role.middleware');
 
 router.use(authMiddleware);
 
+// Aquí agregamos la ruta POST que faltaba para crear usuarios
+router.post('/', roleMiddleware(['admin']), userController.createUser);
 router.get('/', roleMiddleware(['admin']), userController.getUsers);
 router.get('/:id', roleMiddleware(['admin']), userController.getUserById);
 router.put('/:id', roleMiddleware(['admin']), userController.updateUser);
