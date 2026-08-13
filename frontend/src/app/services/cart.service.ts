@@ -6,7 +6,7 @@ import { environment } from '../../environments/environments';
 @Injectable({ providedIn: 'root' })
 export class CartService {
   // Tu ruta original para el cliente
-  private apiUrlClient = '${environment.apiUrl}/cart';
+  private apiUrlClient = `${environment.apiUrl}/cart`;
   
   // Ruta para el administrador (usualmente en plural para traer toda la colección)
   private apiUrlAdmin = '${environment.apiUrl}/carts';
