@@ -6,7 +6,7 @@ import { environment } from '../../environments/environments';
 @Injectable({ providedIn: 'root' })
 export class PaymentService {
   // Asegúrate de que esta URL coincida con la de tu backend (usualmente es en plural)
-  private apiUrl = '${environment.apiUrl}/payments'; 
+  private apiUrl = `${environment.apiUrl}/payments`; 
 
   constructor(private http: HttpClient) {}
 
