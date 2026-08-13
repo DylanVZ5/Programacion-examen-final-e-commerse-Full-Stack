@@ -9,7 +9,7 @@ export class CartService {
   private apiUrlClient = `${environment.apiUrl}/cart`;
   
   // Ruta para el administrador (usualmente en plural para traer toda la colección)
-  private apiUrlAdmin = '${environment.apiUrl}/carts';
+  private apiUrlAdmin = `${environment.apiUrl}/carts`;
 
   constructor(private http: HttpClient) {}
 

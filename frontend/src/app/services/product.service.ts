@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = `${environment.apiUrl}/productss`; // Cambiar por la de Render al hacer deploy
+  private apiUrl = `${environment.apiUrl}/products`; // Cambiar por la de Render al hacer deploy
 
   constructor(private http: HttpClient) {}
 
