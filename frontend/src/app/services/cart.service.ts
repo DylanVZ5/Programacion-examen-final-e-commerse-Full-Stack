@@ -23,12 +23,14 @@ export class CartService {
 
   // Agregar un producto al carrito
   addToCart(productId: string, quantity: number): Observable<any> { 
-    return this.http.post(this.apiUrlClient, { product: productId, quantity }); 
+    // Ahora enviamos 'productoId' tal cual lo exige tu cart.controller.js
+    return this.http.post(this.apiUrlClient, { productoId: productId, cantidad: quantity }); 
   }
 
-  // Eliminar un ítem del carrito
-  removeItem(itemId: string): Observable<any> { 
-    return this.http.delete(`${this.apiUrlClient}/${itemId}`); 
+ // Eliminar un producto específico del carrito
+  removeFromCart(productoId: string): Observable<any> {
+    // Hace una petición DELETE a http://localhost:3000/api/cart/ID_DEL_PRODUCTO
+    return this.http.delete(`${this.apiUrlClient}/${productoId}`);
   }
 
   // Vaciar el carrito completamente
