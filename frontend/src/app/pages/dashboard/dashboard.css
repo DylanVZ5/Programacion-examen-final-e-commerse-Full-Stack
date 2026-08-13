@@ -1,0 +1,86 @@
+/* Importamos la fuente para asegurarnos de que todo el dashboard la use */
+* {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  background-color: #f1f5f9; /* Un fondo gris/azulado súper claro para el área principal */
+}
+
+/* --- ESTILOS DEL MENÚ LATERAL --- */
+.sidebar {
+  width: 260px;
+  background-color: #0f172a; /* Un azul noche muy profundo y elegante */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2.5rem;
+  padding-left: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Espaciado entre los enlaces */
+  flex-grow: 1;
+}
+
+/* Adiós a los enlaces morados feos */
+.sidebar nav a {
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+/* Efecto hover interactivo en el menú */
+.sidebar nav a:hover {
+  background-color: #1e293b;
+  color: #f8fafc;
+  transform: translateX(5px); /* Se mueve un poquito a la derecha */
+}
+
+/* Botón de cerrar sesión en el menú */
+.btn-logout {
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.btn-logout:hover {
+  background-color: #ef4444;
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* --- ÁREA PRINCIPAL --- */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+}

@@ -1,1 +1,59 @@
-<p>categorias works!</p>
+<div class="crud-container">
+  <header class="crud-header">
+    <h2>Gestión de Categorías</h2>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nueva Categoría</button>
+  </header>
+
+  <div class="search-bar">
+    <input 
+      type="text" 
+      placeholder="Buscar categoría..." 
+      [(ngModel)]="filtroBusqueda">
+  </div>
+
+  @if (!mostrarFormulario) {
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nombre de la Categoría</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (cat of categoriasFiltradas; track cat._id) {
+            <tr>
+              <td>{{ cat.nombre }}</td>
+              <td class="actions">
+                <button class="btn-edit" (click)="abrirFormulario(cat)">Editar</button>
+                <button class="btn-delete" (click)="eliminarCategoria(cat._id)">Eliminar</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="2" class="text-center">No se encontraron categorías.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+    <div class="form-card">
+      <h3>{{ esEdicion ? 'Editar Categoría' : 'Crear Nueva Categoría' }}</h3>
+      
+      <form (ngSubmit)="guardarCategoria()">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" name="nombre" [(ngModel)]="categoriaActual.nombre" required>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="cerrarFormulario()">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Categoría</button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

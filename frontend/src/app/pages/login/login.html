@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <!-- Efectos decorativos de fondo -->
+  <div class="glow-shape shape-1"></div>
+  <div class="glow-shape shape-2"></div>
+
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
+          <path fill-rule="evenodd" d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <h1>ShopSmart</h1>
+      <p>Plataforma E-Commerce Educativa</p>
+    </div>
+
+    <!-- Tu formulario de Angular va aquí -->
+    <!-- Le decimos al formulario que al enviarse, ejecute tu función de login -->
+    <form (ngSubmit)="iniciarSesion()">
+      <div class="input-group">
+        <label for="email">Correo Electrónico</label>
+        <div class="input-wrapper">
+          <!-- Agregamos el name y [(ngModel)] -->
+          <input type="email" id="email" name="email" [(ngModel)]="credenciales.email" placeholder="admin@shopsmart.com" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <div class="input-wrapper">
+          <!-- Agregamos el name y [(ngModel)] -->
+          <input type="password" id="password" name="password" [(ngModel)]="credenciales.password" placeholder="••••••••" required>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="remember-me">
+          <input type="checkbox">
+          <span>Recordarme</span>
+        </label>
+        <!-- Dejamos este enlace como adorno visual -->
+        <a href="javascript:void(0)" class="forgot-password">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-login">
+        Iniciar Sesión
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
