@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
   // Tu ruta original para el cliente
-  private apiUrlClient = 'http://localhost:3000/api/cart';
+  private apiUrlClient = '${environment.apiUrl}/cart';
   
   // Ruta para el administrador (usualmente en plural para traer toda la colección)
-  private apiUrlAdmin = 'http://localhost:3000/api/carts';
+  private apiUrlAdmin = '${environment.apiUrl}/carts';
 
   constructor(private http: HttpClient) {}
 
