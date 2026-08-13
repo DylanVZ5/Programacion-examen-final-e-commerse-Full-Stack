@@ -1,4 +1,35 @@
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+
+exports.createUser = async (req, res, next) => {
+  try {
+    const { nombre, email, password, rol } = req.body;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const nuevoUsuario = new User({
+      nombre,
+      email,
+      password: hashedPassword,
+      rol: rol || 'user'
+    });
+
+    await nuevoUsuario.save();
+
+    res.status(201).json({
+      message: 'Usuario creado exitosamente',
+      user: {
+        _id: nuevoUsuario._id,
+        nombre: nuevoUsuario.nombre,
+        email: nuevoUsuario.email,
+        rol: nuevoUsuario.rol
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.getUsers = async (req, res) => {
   try {

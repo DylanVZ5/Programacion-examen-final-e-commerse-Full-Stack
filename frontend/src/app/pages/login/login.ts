@@ -32,9 +32,22 @@ export class Login {
     this.mensajeError = '';
 
     this.authService.login(this.credenciales).subscribe({
-      next: () => {
-        // Si el login es exitoso y el token se guarda, vamos al dashboard
-        this.router.navigate(['/dashboard/productos']);
+      // Modificamos el next para recibir la respuesta (res) del backend
+      next: (res: any) => {
+        // Extraemos el rol. Asegúrate de que la ruta coincida con lo que envía tu Node.js
+        const rolUsuario = res.user?.rol || res.rol || 'user';
+        
+        // Guardamos el token y el rol en el navegador
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', rolUsuario);
+
+        // Redirección inteligente basada en el rol
+        if (rolUsuario === 'admin') {
+          this.router.navigate(['/dashboard/productos']);
+        } else {
+          // Si es un comprador normal, lo mandamos a la tienda principal
+          this.router.navigate(['/tienda']); 
+        }
       },
       error: (err) => {
         this.cargando = false;

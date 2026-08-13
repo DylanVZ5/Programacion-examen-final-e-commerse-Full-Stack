@@ -1,1 +1,92 @@
-<p>pedidos works!</p>
+<div class="crud-container">
+  <header class="crud-header">
+    <h2>Gestión de Pedidos</h2>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nuevo Pedido (Manual)</button>
+  </header>
+
+  <div class="search-bar">
+    <input 
+      type="text" 
+      placeholder="Buscar por estado (ej. pendiente, enviado)..." 
+      [(ngModel)]="filtroBusqueda">
+  </div>
+
+  @if (!mostrarFormulario) {
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID Pedido / Usuario</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (pedido of pedidosFiltrados; track pedido._id) {
+            <tr>
+              <td>
+                <!-- Mostramos el nombre del usuario si el backend hace 'populate', sino el ID -->
+                {{ pedido.usuario?.nombre || pedido.usuario || 'Desconocido' }}
+              </td>
+              <td>${{ pedido.total }}</td>
+              <td>
+                <span class="badge" 
+                      [class.bg-warning]="pedido.estado === 'pendiente'"
+                      [class.bg-info]="pedido.estado === 'enviado'"
+                      [class.bg-success]="pedido.estado === 'entregado'">
+                  {{ pedido.estado | uppercase }}
+                </span>
+              </td>
+              <td class="actions">
+                <button class="btn-edit" (click)="abrirFormulario(pedido)">Actualizar Estado</button>
+                <button class="btn-delete" (click)="eliminarPedido(pedido._id)">Eliminar</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="text-center">No hay pedidos registrados.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+    <div class="form-card">
+      <h3>{{ esEdicion ? 'Actualizar Estado del Pedido' : 'Registrar Pedido Manual' }}</h3>
+      
+      <form (ngSubmit)="guardarPedido()">
+        
+        <div class="form-group row">
+          <div class="col">
+            <label>ID del Usuario</label>
+            <!-- Si es edición, bloqueamos el ID del usuario para que solo cambien el estado -->
+            <input type="text" name="usuario" [(ngModel)]="pedidoActual.usuario" required [disabled]="esEdicion">
+          </div>
+          <div class="col">
+            <label>Total de Compra ($)</label>
+            <input type="number" name="total" [(ngModel)]="pedidoActual.total" required min="0" [disabled]="esEdicion">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Estado del Pedido</label>
+          <select name="estado" [(ngModel)]="pedidoActual.estado" class="form-select">
+            <option value="pendiente">Pendiente</option>
+            <option value="pagado">Pagado</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="cerrarFormulario()">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Pedido</button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

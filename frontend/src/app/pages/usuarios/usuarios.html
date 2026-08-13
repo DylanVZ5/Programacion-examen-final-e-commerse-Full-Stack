@@ -30,7 +30,7 @@
               <td>{{ user.nombre }}</td>
               <td>{{ user.email }}</td>
               <td>
-                <span class="badge" [class.admin-badge]="user.rol === 'admin'">{{ user.rol }}</span>
+                <span class="badge" [class.bg-admin]="user.rol === 'admin'" [class.bg-user]="user.rol === 'user'"></span>
               </td>
               <td class="actions">
                 <button class="btn-edit" (click)="abrirFormulario(user)">Editar</button>

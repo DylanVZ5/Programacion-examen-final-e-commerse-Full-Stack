@@ -1,93 +1,248 @@
-.login-container {
+/* --- 1. IMPORTAMOS Y FORZAMOS LA FUENTE MODERNA --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+/* --- 2. CONTENEDOR PRINCIPAL Y FONDO VIVO --- */
+.login-wrapper {
+  position: relative;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f1f4f6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-content: center;
+  /* Oscurecemos un toque el fondo para que la tarjeta blanca resalte de verdad */
+  background-color: #e2e8f0; 
+  overflow: hidden;
+  padding: 1rem;
 }
 
+/* Esferas de luz difuminadas con animación flotante */
+.glow-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.shape-1 {
+  width: 450px;
+  height: 450px;
+  background: #60a5fa; /* Azul vibrante */
+  top: -100px;
+  left: -150px;
+  animation: float1 12s ease-in-out infinite alternate;
+}
+
+.shape-2 {
+  width: 350px;
+  height: 350px;
+  background: #a78bfa; /* Morado vibrante */
+  bottom: -50px;
+  right: -100px;
+  animation: float2 10s ease-in-out infinite alternate;
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 80px) scale(1.1); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-60px, -40px) scale(1.2); }
+}
+
+/* --- 3. LA TARJETA (CON SOMBRA PREMIUM Y EFECTO HOVER) --- */
 .login-card {
-  background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  padding: 3rem 2.5rem;
+  border-radius: 24px;
+  /* Aquí está la magia: Múltiples capas de sombra para dar profundidad real */
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 25px 50px -12px rgba(15, 23, 42, 0.25),
+    0 0 0 1px rgba(226, 232, 240, 1); /* Borde sutil integrado en la sombra */
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
 }
 
+/* Interactividad: La tarjeta "levita" un poco cuando pasas el mouse */
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 10px 20px -5px rgba(0, 0, 0, 0.05),
+    0 20px 30px -10px rgba(0, 0, 0, 0.1),
+    0 40px 60px -15px rgba(15, 23, 42, 0.3),
+    0 0 0 1px rgba(226, 232, 240, 1);
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- CABECERA Y LOGO --- */
 .login-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 2.5rem;
 }
 
-.login-header h2 {
-  color: #2c3e50;
-  margin: 0 0 10px 0;
-  font-size: 28px;
+.logo-circle {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+  animation: pulseLogo 3s infinite alternate;
+}
+
+.logo-circle svg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+@keyframes pulseLogo {
+  0% { box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4); }
+  100% { box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.7); transform: scale(1.02); }
+}
+
+.login-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #0f172a, #2563eb);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .login-header p {
-  color: #7f8c8d;
-  margin: 0;
-  font-size: 14px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #34495e;
+  color: #64748b;
+  font-size: 1rem;
   font-weight: 500;
-  font-size: 14px;
 }
 
-.form-group input {
+/* --- 4. FORMULARIOS INTERACTIVOS --- */
+.input-group { margin-bottom: 1.5rem; }
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.2px;
+}
+
+.input-wrapper input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #bdc3c7;
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 14px;
-  transition: border-color 0.3s;
-}
-
-.form-group input:focus {
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  color: #0f172a;
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
   outline: none;
-  border-color: #3498db;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.alert-error {
-  background-color: #f8d7da;
-  color: #842029;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 14px;
-  text-align: center;
+.input-wrapper input::placeholder { color: #94a3b8; }
+
+.input-wrapper input:hover {
+  border-color: #cbd5e1;
+  background-color: #ffffff;
 }
 
+.input-wrapper input:focus {
+  background-color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+/* --- OPCIONES --- */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #475569;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.remember-me input[type="checkbox"]:active { transform: scale(0.8); }
+
+.forgot-password {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.forgot-password:hover { color: #1e40af; text-decoration: underline; }
+
+/* --- BOTÓN DE LOGIN MAGNÉTICO --- */
 .btn-login {
   width: 100%;
-  padding: 12px;
-  background-color: #0d6efd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  font-size: 1.05rem;
   font-weight: 600;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
 }
 
-.btn-login:hover:not([disabled]) {
-  background-color: #0b5ed7;
+.btn-login svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-login[disabled] {
-  background-color: #a0c4ff;
-  cursor: not-allowed;
+.btn-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
+  background: linear-gradient(135deg, #4f8cf6 0%, #2563eb 100%);
 }
+
+.btn-login:hover svg { transform: translateX(6px); }
+
+.btn-login:active { transform: translateY(0); box-shadow: 0 5px 10px -5px rgba(37, 99, 235, 0.4); }

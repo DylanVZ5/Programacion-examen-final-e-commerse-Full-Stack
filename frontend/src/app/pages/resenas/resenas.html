@@ -1,1 +1,76 @@
-<p>resenas works!</p>
+<div class="crud-container">
+  <header class="crud-header">
+    <h2>Gestión de Reseñas</h2>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nueva Reseña</button>
+  </header>
+
+  <div class="search-bar">
+    <input 
+      type="text" 
+      placeholder="Buscar en los comentarios..." 
+      [(ngModel)]="filtroBusqueda">
+  </div>
+
+  @if (!mostrarFormulario) {
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Producto (ID / Nombre)</th>
+            <th>Comentario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (resena of resenasFiltradas; track resena._id) {
+            <tr>
+              <td class="text-muted">
+                {{ resena.producto?.nombre || resena.producto || 'Desconocido' }}
+              </td>
+              <td>"{{ resena.comentario }}"</td>
+              <td class="actions">
+                <button class="btn-edit" (click)="abrirFormulario(resena)">Editar</button>
+                <button class="btn-delete" (click)="eliminarResena(resena._id)">Eliminar</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3" class="text-center">No hay reseñas registradas.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+    <div class="form-card">
+      <h3>{{ esEdicion ? 'Editar Reseña' : 'Crear Nueva Reseña' }}</h3>
+      
+      <form (ngSubmit)="guardarResena()">
+        
+        <div class="form-group">
+          <label>ID del Producto</label>
+          <!-- Si es edición, bloqueamos el ID del producto para editar solo el texto -->
+          <input type="text" name="producto" [(ngModel)]="resenaActual.producto" required [disabled]="esEdicion">
+        </div>
+
+        <div class="form-group">
+          <label>Comentario de la Reseña</label>
+          <textarea 
+            name="comentario" 
+            [(ngModel)]="resenaActual.comentario" 
+            rows="4" 
+            class="form-textarea" 
+            required>
+          </textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="cerrarFormulario()">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Reseña</button>
+        </div>
+      </form>
+    </div>
+  }
+</div>
