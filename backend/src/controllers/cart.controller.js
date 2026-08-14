@@ -42,8 +42,33 @@ exports.removeFromCart = async (req, res) => {
 
     cart.productos = cart.productos.filter(p => p.producto.toString() !== req.params.productoId);
     await cart.save();
+    
+    await cart.populate('productos.producto');
+    
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: 'Error al remover del carrito', error: error.message });
+  }
+};
+
+// Obtener TODOS los carritos (Solo Admin)
+exports.getAllCarts = async (req, res) => {
+  try {
+    console.log("ADMIN: Solicitando todos los carritos de la base de datos...");
+    
+    // Al usar Cart.find() vacío, Mongoose ignora los usuarios y trae TODO
+    const carts = await Cart.find()
+      .populate('usuario', 'nombre email')
+      .populate('productos.producto', 'nombre precio')
+      .sort({ updatedAt: -1 });
+
+    console.log(`ADMIN: Se encontraron ${carts.length} carritos.`);
+    
+    // Si todo sale bien, enviamos la respuesta para destrabar a Angular
+    res.status(200).json(carts);
+  } catch (error) {
+    console.error('Error al obtener el historial:', error);
+    // Si algo falla, enviamos el error para que Angular no se quede esperando
+    res.status(500).json({ message: 'Error interno del servidor', error: error.message });
   }
 };

@@ -39,6 +39,10 @@ export class CartService {
     return this.http.delete(`${this.apiUrlClient}/clear`);
   }
 
+  updateCart(id: string, cart: any): Observable<any> { 
+    return this.http.put(`${this.apiUrlClient}/${id}`, cart); 
+  }
+
   // ==========================================
   // LÓGICA DEL ADMINISTRADOR (Para el Dashboard)
   // ==========================================
@@ -53,13 +57,13 @@ export class CartService {
     return this.http.post(this.apiUrlAdmin, cart); 
   }
   
-  // Actualizar un carrito desde el admin
-  updateCart(id: string, cart: any): Observable<any> { 
-    return this.http.put(`${this.apiUrlAdmin}/${id}`, cart); 
-  }
-  
   // Eliminar el carrito de un usuario
   deleteCart(id: string): Observable<any> { 
     return this.http.delete(`${this.apiUrlAdmin}/${id}`); 
+  }
+
+  // Obtener el log completo de carritos (Admin)
+  getAllCarts(): Observable<any> {
+    return this.http.get(`${this.apiUrlClient}/all`);
   }
 }

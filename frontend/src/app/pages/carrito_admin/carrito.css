@@ -1,0 +1,123 @@
+.admin-dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 1.8rem;
+  color: #0f172a;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  color: #64748b;
+}
+
+/* La tarjeta blanca que envuelve la tabla */
+.table-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  overflow: hidden; 
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Encabezados de la tabla */
+.admin-table th {
+  background-color: #f8fafc;
+  padding: 1.2rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Filas de la tabla */
+.admin-table td {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+  transition: background-color 0.2s;
+}
+
+.admin-table tbody tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* --- ESTILOS DE LAS CELDAS --- */
+
+.date-cell {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* 🔥 Esto arregla el nombre y correo amontonados 🔥 */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.user-email {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.items-cell {
+  font-weight: 500;
+}
+
+.price-cell {
+  font-weight: 700;
+  color: #10b981; /* Color verde de éxito */
+  font-size: 1.05rem;
+}
+
+/* --- ETIQUETAS DE ESTADO (BADGES) --- */
+
+.badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge.active {
+  background-color: #dbeafe;
+  color: #2563eb; 
+}
+
+.badge.empty {
+  background-color: #f1f5f9;
+  color: #64748b; 
+}
+
+/* Estados de carga y vacío */
+.empty-state, .loading-state {
+  text-align: center;
+  padding: 3rem !important;
+  color: #64748b;
+  font-style: italic;
+}

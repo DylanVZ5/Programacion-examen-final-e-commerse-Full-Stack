@@ -1,0 +1,54 @@
+<div class="admin-dashboard-container">
+  <div class="dashboard-header">
+    <h1>Log de Carritos</h1>
+    <p>Monitor de actividad de los usuarios en tiempo real</p>
+  </div>
+
+  @if (cargando) {
+    <div class="loading-state">Cargando registros...</div>
+  } @else {
+    <div class="table-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Fecha de Actividad</th>
+            <th>Usuario</th>
+            <th>Artículos</th>
+            <th>Total Acumulado</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (carrito of carritos; track carrito._id) {
+            <tr>
+              <td class="date-cell">{{ carrito.updatedAt | date:'medium' }}</td>
+              
+              <td>
+                <div class="user-info">
+                  <span class="user-name">{{ carrito.usuario?.nombre || 'Usuario Eliminado' }}</span>
+                  <span class="user-email">{{ carrito.usuario?.email || 'N/A' }}</span>
+                </div>
+              </td>
+              
+              <td class="items-cell">{{ carrito.productos?.length || 0 }} ítems</td>
+              
+              <td class="price-cell">${{ calcularTotal(carrito) }}</td>
+              
+              <td>
+                @if (carrito.productos?.length > 0) {
+                  <span class="badge active">Activo</span>
+                } @else {
+                  <span class="badge empty">Vacío</span>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-state">No hay registros de carritos todavía.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -79,23 +79,18 @@ body {
 
 /* --- TABLAS LEVITANTES --- */
 .table-responsive {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background-color: #ffffff !important;
   border-radius: 16px;
-  /* Sombra 3D profunda */
-  box-shadow: 
-    0 10px 15px -3px rgba(0, 0, 0, 0.05),
-    0 4px 6px -2px rgba(0, 0, 0, 0.025),
-    0 0 0 1px rgba(226, 232, 240, 0.8);
-  overflow: hidden;
-  transition: box-shadow 0.3s ease;
+  /* Sombra azulada SaaS permanente */
+  box-shadow: 0 10px 35px rgba(59, 130, 246, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.08) !important;
+  overflow-x: auto;
+  border: none !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+/* Efecto al pasar el mouse sobre toda la tabla */
 .table-responsive:hover {
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.08),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(226, 232, 240, 1);
+  box-shadow: 0 15px 45px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(59, 130, 246, 0.15) !important;
 }
 
 .data-table { width: 100%; border-collapse: collapse; }
@@ -199,17 +194,14 @@ button { font-family: inherit; }
 
 /* --- TARJETAS DE FORMULARIO (Crear/Editar) --- */
 .form-card {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
+  background-color: #ffffff !important;
   padding: 2.5rem;
   border-radius: 20px;
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(226, 232, 240, 0.8);
-  max-width: 650px;
+  /* La misma sombra para mantener coherencia en toda la app */
+  box-shadow: 0 10px 35px rgba(59, 130, 246, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.08) !important;
+  border: none !important;
+  max-width: 600px;
   margin: 0 auto;
-  animation: fadeSlideUp 0.4s ease-out forwards;
 }
 
 .form-card h3 {
@@ -281,3 +273,78 @@ button { font-family: inherit; }
 /* --- TEXTOS AUXILIARES --- */
 .text-muted { color: #64748b; font-size: 0.85em; font-weight: 500; }
 .help-text { display: block; margin-top: -1rem; margin-bottom: 1.5rem; color: #94a3b8; font-size: 0.85rem; }
+
+/* =========================================
+   TOAST NOTIFICATIONS (Alertas Profesionales)
+   ========================================= */
+/* =========================================
+   SISTEMA DE TOASTS APILABLES
+   ========================================= */
+
+/* 1. El contenedor invisible que apila las notificaciones */
+.toast-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column; /* Apila los elementos de arriba hacia abajo */
+  gap: 1rem; /* El espacio entre cada mensaje */
+  z-index: 10000;
+  pointer-events: none; /* Evita que el contenedor invisible bloquee clics en la tienda */
+}
+
+/* 2. La notificación individual */
+.toast-notification {
+  position: relative; /* Ahora fluye dentro del contenedor */
+  background: #10b981;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 320px;
+  pointer-events: auto; /* Reactivamos los clics solo para la tarjeta */
+  
+  /* Animación de entrada */
+  animation: slideInRightStack 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-notification.toast-error {
+  background-color: #ef4444;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+}
+
+.toast-notification svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+@keyframes slideInRightStack {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-notification svg {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(150%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Modificador para cuando el Toast es un Error */
+.toast-notification.toast-error {
+  background-color: #ef4444; /* Rojo vibrante */
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+}
