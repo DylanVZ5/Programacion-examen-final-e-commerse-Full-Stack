@@ -12,14 +12,21 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // Login: Guarda el token tras una respuesta exitosa
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
         if (res.token) {
           localStorage.setItem('token', res.token);
-          // Opcional: guardar datos del usuario
-          // localStorage.setItem('user', JSON.stringify(res.user));
+          
+          // Capturamos los datos completos del usuario
+          const userData = res.usuario || res.user || res.data?.usuario; 
+          
+          if (userData) {
+            localStorage.setItem('usuario', JSON.stringify(userData));
+            
+            // Guardamos el rol para el candado (Guard)
+            localStorage.setItem('rol', userData.rol || 'user');
+          }
         }
       })
     );
@@ -34,5 +41,15 @@ export class AuthService {
   // Verifica si el usuario tiene un token activo
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
+  }
+
+  // Actualizar perfil del usuario
+  actualizarPerfil(datos: any): Observable<any> {
+    // Asumimos que la ruta en Node.js será PUT /api/auth/perfil o similar
+    return this.http.put(`${this.apiUrl}/perfil`, datos);
   }
 }

@@ -1,0 +1,78 @@
+<div class="profile-wrapper">
+  <div class="profile-card">
+    
+    <!-- 🔥 BOTÓN INTEGRADO DENTRO DE LA TARJETA 🔥 -->
+    <a routerLink="/tienda" class="btn-back-inline">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      Volver a la tienda
+    </a>
+
+    <div class="profile-header">
+      <div class="avatar-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      </div>
+      <h1>Mi Perfil</h1>
+      <p>Administra tu información personal</p>
+    </div>
+
+    <form (ngSubmit)="guardarCambios()">
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input 
+          type="text" 
+          name="nombre" 
+          [(ngModel)]="usuario.nombre" 
+          required>
+      </div>
+
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input 
+          type="email" 
+          name="email" 
+          [(ngModel)]="usuario.email" 
+          required>
+      </div>
+
+      <div class="form-group">
+        <label>Nueva Contraseña (Opcional)</label>
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Déjalo en blanco para no cambiarla"
+          [(ngModel)]="usuario.password">
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="cargando">
+        {{ cargando ? 'Guardando...' : 'Guardar Cambios' }}
+        @if (!cargando) {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        }
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- SISTEMA DE TOASTS -->
+<div class="toast-container">
+  @for (toast of toasts; track toast.id) {
+    <div class="toast-notification" [class.toast-error]="toast.tipo === 'error'">
+      @if (toast.tipo === 'success') {
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      } @else {
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      }
+      <span style="flex-grow: 1;">{{ toast.mensaje }}</span>
+    </div>
+  }
+</div>

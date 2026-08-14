@@ -13,13 +13,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Oscurecemos un toque el fondo para que la tarjeta blanca resalte de verdad */
   background-color: #e2e8f0; 
   overflow: hidden;
   padding: 1rem;
 }
 
-/* Esferas de luz difuminadas con animación flotante */
 .glow-shape {
   position: absolute;
   border-radius: 50%;
@@ -31,7 +29,7 @@
 .shape-1 {
   width: 450px;
   height: 450px;
-  background: #60a5fa; /* Azul vibrante */
+  background: #60a5fa; 
   top: -100px;
   left: -150px;
   animation: float1 12s ease-in-out infinite alternate;
@@ -40,7 +38,7 @@
 .shape-2 {
   width: 350px;
   height: 350px;
-  background: #a78bfa; /* Morado vibrante */
+  background: #a78bfa; 
   bottom: -50px;
   right: -100px;
   animation: float2 10s ease-in-out infinite alternate;
@@ -56,7 +54,7 @@
   100% { transform: translate(-60px, -40px) scale(1.2); }
 }
 
-/* --- 3. LA TARJETA (CON SOMBRA PREMIUM Y EFECTO HOVER) --- */
+/* --- 3. LA TARJETA --- */
 .login-card {
   position: relative;
   z-index: 1;
@@ -66,17 +64,15 @@
   backdrop-filter: blur(12px);
   padding: 3rem 2.5rem;
   border-radius: 24px;
-  /* Aquí está la magia: Múltiples capas de sombra para dar profundidad real */
   box-shadow: 
     0 4px 6px -1px rgba(0, 0, 0, 0.05),
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 25px 50px -12px rgba(15, 23, 42, 0.25),
-    0 0 0 1px rgba(226, 232, 240, 1); /* Borde sutil integrado en la sombra */
+    0 0 0 1px rgba(226, 232, 240, 1); 
   animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
 }
 
-/* Interactividad: La tarjeta "levita" un poco cuando pasas el mouse */
 .login-card:hover {
   transform: translateY(-5px);
   box-shadow: 
@@ -138,9 +134,11 @@
 }
 
 /* --- 4. FORMULARIOS INTERACTIVOS --- */
-.input-group { margin-bottom: 1.5rem; }
+.input-group, .form-group { 
+  margin-bottom: 1.5rem; 
+}
 
-.input-group label {
+.input-group label, .form-group label {
   display: block;
   font-size: 0.9rem;
   font-weight: 600;
@@ -149,29 +147,37 @@
   letter-spacing: 0.2px;
 }
 
-.input-wrapper input {
+/* 🔥 AQUÍ ESTÁ EL ARREGLO: Unificamos las clases para que Angular lo detecte siempre 🔥 */
+.input-wrapper input, .form-group input, .input-group input {
   width: 100%;
   padding: 0.9rem 1.2rem;
+  background-color: #f8fafc !important; 
+  border: 2px solid #e2e8f0 !important; 
+  border-radius: 12px;
   font-size: 1rem;
   color: #0f172a;
-  background-color: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  outline: none;
+  /* Sombra negra permanente añadida aquí */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08) !important; 
+  outline: none !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.input-wrapper input::placeholder { color: #94a3b8; }
-
-.input-wrapper input:hover {
-  border-color: #cbd5e1;
-  background-color: #ffffff;
+.input-wrapper input::placeholder, .form-group input::placeholder { 
+  color: #94a3b8; 
 }
 
-.input-wrapper input:focus {
-  background-color: #ffffff;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+/* ESTADO HOVER */
+.input-wrapper input:hover, .form-group input:hover, .input-group input:hover {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* ESTADO FOCUS */
+.input-wrapper input:focus, .form-group input:focus, .input-group input:focus {
+  background-color: #ffffff !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 8px 20px rgba(0, 0, 0, 0.1) !important;
   transform: translateY(-2px);
 }
 
@@ -213,7 +219,7 @@
 .forgot-password:hover { color: #1e40af; text-decoration: underline; }
 
 /* --- BOTÓN DE LOGIN MAGNÉTICO --- */
-.btn-login {
+.btn-login, .btn-submit {
   width: 100%;
   display: flex;
   align-items: center;
@@ -231,18 +237,68 @@
   box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
 }
 
-.btn-login svg {
+.btn-login svg, .btn-submit svg {
   width: 22px;
   height: 22px;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-login:hover {
+.btn-login:hover, .btn-submit:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
   background: linear-gradient(135deg, #4f8cf6 0%, #2563eb 100%);
 }
 
-.btn-login:hover svg { transform: translateX(6px); }
+.btn-login:hover svg, .btn-submit:hover svg { transform: translateX(6px); }
 
-.btn-login:active { transform: translateY(0); box-shadow: 0 5px 10px -5px rgba(37, 99, 235, 0.4); }
+.btn-login:active, .btn-submit:active { transform: translateY(0); box-shadow: 0 5px 10px -5px rgba(37, 99, 235, 0.4); }
+
+/* --- Enlaces de pie de página --- */
+.register-prompt {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.register-prompt a {
+  color: #3b82f6; 
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.register-prompt a:hover {
+  color: #1e3a8a; 
+  text-decoration: underline;
+}
+
+/* --- TOAST DE RESPALDO --- */
+.toast-notification {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background-color: #10b981; 
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  z-index: 999999; 
+  animation: slideInRight 0.4s ease-out forwards;
+}
+
+.toast-notification.toast-error {
+  background-color: #ef4444; 
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+}
+
+.toast-notification svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

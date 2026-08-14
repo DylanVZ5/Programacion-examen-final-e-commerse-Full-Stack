@@ -29,11 +29,8 @@
             <tr>
               <td>{{ user.nombre }}</td>
               <td>{{ user.email }}</td>
-              <td>
-                <span class="badge" [class.bg-admin]="user.rol === 'admin'" [class.bg-user]="user.rol === 'user'"></span>
-              </td>
-              <!-- Reemplaza el <td> del rol por este: -->
-              <!-- Fíjate cómo ahora dice 'user.rol' en lugar de 'usuario.rol' -->
+              
+              <!-- COLUMNA 3: El Rol con su texto y color correcto -->
               <td>
                 <span class="badge" 
                       [class.bg-admin]="user.rol === 'admin'" 
@@ -41,6 +38,16 @@
                   {{ user.rol | uppercase }}
                 </span>
               </td>
+
+              <!-- COLUMNA 4: Los botones de acción -->
+              <td>
+                <div class="actions">
+                  <!-- Nota: Agrega tus eventos (click) aquí si los tienes en tu .ts -->
+                  <button class="btn-edit">Editar</button>
+                  <button class="btn-delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
           } @empty {
             <tr>
               <td colspan="4" class="text-center">No se encontraron usuarios.</td>
